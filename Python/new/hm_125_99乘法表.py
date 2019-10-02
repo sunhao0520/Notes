@@ -10,6 +10,9 @@ while row<=9:
     col=1
     row+=1
 
+print("")
+import other_test
+other_test.chenfabiao()
 
 """
 i=0
