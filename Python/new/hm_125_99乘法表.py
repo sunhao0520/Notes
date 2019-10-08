@@ -1,5 +1,21 @@
 row=1
 col=1
+k=0
+
+while row<=9:
+    while col<=row:
+        k=col*row
+        print("%d*%d=%d"%(row,col,k),end=" ")
+        col += 1
+    col=1
+    row += 1
+    print("")
+
+
+
+"""
+row=1
+col=1
 K=0
 while row<=9:
     while col<=row:
@@ -13,7 +29,7 @@ while row<=9:
 print("")
 import other_test
 other_test.chenfabiao()
-
+"""
 """
 i=0
 j=0

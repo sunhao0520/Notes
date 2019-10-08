@@ -1,12 +1,12 @@
 def sum_2_num(a,b):
     """"对两个数字的求和"""
-    c=a+b
-    print("%d+%d=%d"%(a,b,c))
+    print("%d+%d" % (a, b),end="=")
+    return a+b
 
 a=int(input("请输入加数1："))
 b=int(input("请输入加数2："))
-sum_2_num(a,b)
-
+you =sum_2_num(a,b)
+print(you)
 
 
 
