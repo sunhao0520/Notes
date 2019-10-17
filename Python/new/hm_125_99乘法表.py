@@ -1,17 +1,24 @@
-row=1
-col=1
-k=0
-
-while row<=9:
-    while col<=row:
-        k=col*row
-        print("%d*%d=%d"%(row,col,k),end=" ")
-        col += 1
+def chengfa(m):
+    row=1
     col=1
-    row += 1
-    print("")
+    k=0
+    while row<=m:
+        while col<=row:
+            k=col*row
+            print("%d*%d=%d"%(row,col,k),end=" ")
+            if row==6:
+                print("")
+                return k
+            col += 1
+        col=1
+        row += 1
+        print("")
 
-
+q=1
+p=7
+m=q*p
+v=chengfa(m)
+print(v)
 
 """
 row=1
