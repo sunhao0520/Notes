@@ -63,10 +63,10 @@ def search_card():
     print("-" * 30)
     print("搜索名片")
     #输入你要查询的名字
-    name=input("请输入你要查询的名字：")
+    find_name=input("请输入你要查询的名字：")
     # 遍历名片夹，输出内容
     for card_dict in card_list:
-        if card_dict["name"]==name :
+        if card_dict["name"]==find_name :
             for name_m in ["姓名", "电话", "企鹅号", "邮箱"]:
                 print("%-s"% name_m , end="\t\t")
             print("")
@@ -75,6 +75,48 @@ def search_card():
                                             card_dict["phone"],
                                             card_dict["qq_number"],
                                             card_dict["mail"]))
+            deal_card(card_dict)
+            #对后序代码进行修改或添加
             return
-    print("名字不对，请重新输入，或按1创建")
+    print("输入的名字不对，请重新输入，或按1创建")
 
+def deal_card(find_dict):
+    """修改名片
+    find_dict 前面需要修改的名片
+    """
+    keyword_deal=input("请输入你要对名片进行什么操作 "
+                       "r-修改 d-删除 0-返回上级菜单\n选择：")
+    # 修改名片
+    if keyword_deal=="r" or keyword_deal=="R":
+        #for r_card in deal_card(find_dict):
+        #print("姓名",end="")
+        find_dict["name"]=input_card(find_dict["name"],"姓名")
+        find_dict["phone"]=input_card(find_dict["phone"],"电话")
+        find_dict["qq_number"]=input_card(find_dict["qq_number"],"QQ号码")
+        find_dict["mail"]=input_card(find_dict["mail"],"邮箱")
+        #print("修改姓名成功")
+    # 删除名片
+    elif keyword_deal == "d" or keyword_deal == "D":
+        card_list.remove(find_dict)
+
+    elif keyword_deal == "0":
+        return
+    else:
+        print("请输入r或d,或选0退出")
+
+def input_card(dict_value,tip_message):
+    """输入修改，回车则不修改
+    dict_value 源数据
+    tip_message 提示
+    return 如果长度为0，返回名片源数据，长度不为0，返回输入值
+    """
+    #1 提示用户输入
+    print(tip_message,end="")
+    input_cards=input("修改为")
+    #2针对用户的输入进行判断
+    if len(input_cards)==0:
+        print("%s 不修改" % tip_message)
+        return dict_value
+    else:
+        print("%s 已修改完成"%tip_message)
+        return input_cards
