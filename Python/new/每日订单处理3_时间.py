@@ -6,26 +6,30 @@ wb = load_workbook("C:/Users/94960/Desktop/python执行/订单列表 ("+input("�
 #wb = load_workbook("C:/Users/94960/Desktop/python执行/订单列表 (4).xlsx")
 sheet=wb["列表1"]
 courseDate = {}
+i=0 #看计算次数的
 #查询课程及其价格相关
 for row in range(2,sheet.max_row+1):
-    str_courseName=sheet["c"+str(row)].value #课程名
-    courseName=str_courseName.split("\n")[0]
+    str_courseName=sheet["c"+str(row)].value #课程名群号字符串
+    courseName=str_courseName.split("\n")[0] #截取课程名
     #print(courseName)
+    buy_state = sheet["O" + str(row)].value
     coursePrice=sheet["E"+str(row)].value #课程价格
     str_courseday=sheet["M"+str(row)].value #课程时间字符串
     course_day=str(str_courseday[0:10]) #时间取前10位
     #设置字典
-    courseDate.setdefault(course_day,{})
-    courseDate[course_day].setdefault(courseName,{
-        "courseName": "xx",
-        "buy_num":0,
-        "coursePrice":0
-    })
-    #建立字典存储
-    courseDate[course_day][courseName]["buy_num"] += 1
-    courseDate[course_day][courseName]["coursePrice"] += float(coursePrice)
-    courseDate[course_day][courseName]["courseName"] =courseName
-    #course_number["courseName"]=courseName #建立课程名字典
+    if buy_state=="已配送" : #判定订单配送状态
+        courseDate.setdefault(course_day,{})
+        courseDate[course_day].setdefault(courseName,{
+            "courseName": "xx",
+            "buy_num":0,
+            "coursePrice":0
+        })
+        #建立字典存储
+        courseDate[course_day][courseName]["buy_num"] += 1
+        courseDate[course_day][courseName]["coursePrice"] += float(coursePrice)
+        courseDate[course_day][courseName]["courseName"] =courseName
+        #course_number["courseName"]=courseName #建立课程名字典
+        i+=1
 
 
 length_jianzhidui=len(courseDate)
@@ -40,7 +44,7 @@ resultfile.write("\n")
 ws1 = wb.create_sheet("results")
 col=1
 row=2
-ws1.cell(1, 1,"课程名_群号")
+ws1.cell(1, 1,"课程名称")
 ws1.cell(1, 2,"购买人数")
 ws1.cell(1, 3,"价格总和")
 ws1.cell(1, 4,"购买时间")
@@ -72,4 +76,10 @@ for key_words in courseDate.keys(): #遍历日期
                 col=1
         row+=1
 
+
+class Print(object):
+    pass
+
+print("*"*50)
+print("一共%d个数据是有效订单，纳入了计算"%i)
 wb.save("C:/Users/94960/Desktop/数据输出.xlsx")
