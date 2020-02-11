@@ -7,6 +7,7 @@ for my_name in name_list:
 name_list=[{"name":"小美"},
               {"name":"阿土"}]
 find_name="呱呱"
+# 1111
 for stu_fin in name_list:
     print(stu_fin)
     if stu_fin["name"]==find_name:
