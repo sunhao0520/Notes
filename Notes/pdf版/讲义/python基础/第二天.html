@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04_多文件项目的演练</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>多文件项目的演练</h1>
+<ul>
+<li>开发 <strong>项目</strong> 就是开发一个 <strong>专门解决一个复杂业务功能的软件</strong></li>
+<li>
+通常每 <strong>一个项目</strong> 就具有一个 <strong>独立专属的目录</strong>，用于保存 <strong>所有和项目相关的文件</strong>
+<ul>
+<li>一个项目通常会包含 <strong>很多源文件</strong></li>
+</ul>
+</li>
+</ul>
+<h2>目标</h2>
+<ul>
+<li>在项目中添加多个文件，并且设置文件的执行</li>
+</ul>
+<h2>多文件项目演练</h2>
+<ol>
+<li>在 <code>01_Python基础</code> 项目中新建一个 <code>hm_02_第2个Python程序.py</code> </li>
+<li>在 <code>hm_02_第2个Python程序.py</code> 文件中添加一句 <code>print(&quot;hello&quot;)</code></li>
+<li><strong>点击右键执行</strong> <code>hm_02_第2个Python程序.py</code></li>
+</ol>
+<p><img src="media/14957760846222/001_%E8%AE%A9%E9%80%89%E4%B8%AD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C.png" alt="001_让选中的程序可以执行-w662" /></p>
+<h3>提示</h3>
+<ul>
+<li>在 <code>PyCharm</code> 中，要想让哪一个 <code>Python</code> 程序能够执行，必须首先通过 <strong>鼠标右键的方式执行</strong> 一下</li>
+<li>对于初学者而言，在一个项目中设置多个程序可以执行，是非常方便的，可以方便对不同知识点的练习和测试</li>
+<li>对于商业项目而言，通常在一个项目中，只有一个 <strong>可以直接执行的 Python 源程序</strong></li>
+</ul>
+<h1>远程管理常用命令</h1>
+<h2>目标</h2>
+<ul>
+<li>
+关机/重启
+<ul>
+<li><code>shutdown</code></li>
+</ul>
+</li>
+<li>
+查看或配置网卡信息
+<ul>
+<li><code>ifconfig</code></li>
+<li><code>ping</code></li>
+</ul>
+</li>
+<li>
+远程登录和复制文件
+<ul>
+<li><code>ssh</code></li>
+<li><code>scp</code></li>
+</ul>
+</li>
+</ul>
+<h2>01. 关机/重启</h2>
+<p>| 序号 | 命令 | 对应英文 | 作用 |
+| --- | --- | --- | --- |
+| 01 | shutdown 选项 时间 | shutdown | 关机／重新启动 |</p>
+<h3>1.1 <code>shutdown</code></h3>
+<ul>
+<li><code>shutdown</code> 命令可以 <strong>安全</strong> <strong>关闭</strong> 或者 <strong>重新启动系统</strong></li>
+</ul>
+<p>| 选项 | 含义 |
+| --- | --- |
+| -r | 重新启动 |</p>
+<blockquote>
+<p>提示：</p>
+<ul>
+<li><strong>不指定选项和参数</strong>，默认表示 <strong>1 分钟</strong>之后 <strong>关闭电脑</strong></li>
+<li>远程维护服务器时，最好不要关闭系统，而应该重新启动系统</li>
+</ul>
+</blockquote>
+<ul>
+<li>常用命令示例</li>
+</ul>
+<p>```bash</p>
+<h1>重新启动操作系统，其中 now 表示现在</h1>
+<p>$ shutdown -r now</p>
+<h1>立刻关机，其中 now 表示现在</h1>
+<p>$ shutdown now</p>
+<h1>系统在今天的 20:25 会关机</h1>
+<p>$ shutdown 20:25</p>
+<h1>系统再过十分钟后自动关机</h1>
+<p>$ shutdown +10</p>
+<h1>取消之前指定的关机计划</h1>
+<p>$ shutdown -c
+```</p>
+<h2>02. 查看或配置网卡信息</h2>
+<p>| 序号 | 命令 | 对应英文 | 作用 |
+| --- | --- | --- | --- |
+| 01 | ifconfig | configure a network interface | 查看/配置计算机当前的网卡配置信息 |
+| 02 | ping ip地址 | ping | 检测到目标 ip地址 的连接是否正常 |</p>
+<h3>2.1 网卡 和 IP 地址</h3>
+<h4>网卡</h4>
+<ul>
+<li>网卡是一个专门负责网络通讯的硬件设备</li>
+<li><strong>IP 地址</strong>是设置在网卡上的地址信息</li>
+</ul>
+<blockquote>
+<p>我们可以把 <strong>电脑</strong> 比作 <strong>电话<strong>，</strong>网卡</strong> 相当于 <strong>SIM 卡</strong>，<strong>IP 地址</strong> 相当于 <strong>电话号码</strong></p>
+</blockquote>
+<h4>IP 地址</h4>
+<ul>
+<li><strong>每台联网的电脑上</strong>都有 <strong>IP 地址<strong>，</strong>是保证电脑之间正常通讯的重要设置</strong></li>
+</ul>
+<blockquote>
+<p>注意：每台电脑的 IP 地址不能相同，否则会出现 IP 地址冲突，并且没有办法正常通讯</p>
+<p>提示：有关 <strong>IP 地址</strong>的详细内容，在就业班会详细讲解！</p>
+</blockquote>
+<h3>2.2 <code>ifconfig</code></h3>
+<ul>
+<li><code>ifconfig</code> 可以查看／配置计算机当前的网卡配置信息</li>
+</ul>
+<p>```bash</p>
+<h1>查看网卡配置信息</h1>
+<p>$ ifconfig</p>
+<h1>查看网卡对应的 IP 地址</h1>
+<p>$ ifconfig | grep inet
+```</p>
+<blockquote>
+<p>提示：一台计算机中有可能会有一个 <strong>物理网卡</strong> 和 <strong>多个虚拟网卡</strong>，在 Linux 中物理网卡的名字通常以 <code>ensXX</code> 表示</p>
+</blockquote>
+<ul>
+<li><code>127.0.0.1</code> 被称为 <strong>本地回环/环回地址</strong>，一般用来测试本机网卡是否正常</li>
+</ul>
+<h3>2.3 <code>ping</code></h3>
+<p>```bash</p>
+<h1>检测到目标主机是否连接正常</h1>
+<p>$ ping IP地址</p>
+<h1>检测本地网卡工作正常</h1>
+<p>$ ping 127.0.0.1
+```</p>
+<ul>
+<li><code>ping</code> 一般用于检测当前计算机到目标计算机之间的网络 <strong>是否通畅</strong>，<strong>数值越大，速度越慢</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li><code>ping</code> 的工作原理与潜水艇的声纳相似，<code>ping</code> 这个命令就是取自 <strong>声纳的声音</strong> </li>
+<li>网络管理员之间也常将 <code>ping</code> 用作动词 —— <strong>ping 一下计算机X，看他是否开着</strong></li>
+</ul>
+</blockquote>
+<p>原理：网络上的机器都有 <strong>唯一确定的 IP 地址</strong>，我们给<strong>目标 IP 地址</strong>发送一个数据包，对方就要返回一个数据包，根据返回的数据包以及时间，我们可以确定目标主机的存在</p>
+<blockquote>
+<p>提示：在 Linux 中，想要终止一个终端程序的执行，绝大多数都可以使用 <code>CTRL + C</code></p>
+</blockquote>
+<h2>03. 远程登录和复制文件</h2>
+<p>| 序号 | 命令 | 对应英文 | 作用 |
+| --- | --- | --- | --- |
+| 01 | ssh 用户名@ip | secure shell | 关机／重新启动 |
+| 02 | scp 用户名@ip:文件名或路径 用户名@ip:文件名或路径 | secure copy | 远程复制文件 |</p>
+<h3>3.1 <code>ssh</code> 基础（重点）</h3>
+<p>在 Linux 中 SSH 是 <strong>非常常用</strong> 的工具，通过 <strong>SSH 客户端</strong> 我们可以连接到运行了 <strong>SSH 服务器</strong> 的远程机器上</p>
+<p><img src="media/14934132718311/001_SSH%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="001_SSH示意图" /></p>
+<ul>
+<li><strong>SSH 客户端</strong>是一种使用 <code>Secure Shell（SSH）</code> 协议连接到远程计算机的软件程序</li>
+<li>
+<code>SSH</code> 是目前较可靠，<strong>专为远程登录会话和其他网络服务</strong> 提供安全性的协议
+<ul>
+<li>利用 <code>SSH 协议</code> 可以有效<strong>防止远程管理过程中的信息泄露</strong></li>
+<li>通过 <code>SSH 协议</code> 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗</li>
+</ul>
+</li>
+<li><code>SSH</code> 的另一项优点是传输的数据可以是经过压缩的，所以可以加快传输的速度</li>
+</ul>
+<h4>1) 域名 和 端口号</h4>
+<h5>域名</h5>
+<ul>
+<li>由一串 <strong>用点分隔</strong> 的名字组成，例如：<code>www.itcast.cn</code></li>
+<li>是 <strong>IP 地址</strong> 的别名，方便用户记忆</li>
+</ul>
+<h5>端口号</h5>
+<ul>
+<li><strong>IP 地址</strong>：通过 <strong>IP 地址</strong> 找到网络上的 <strong>计算机</strong></li>
+<li>
+<p><strong>端口号</strong>：通过 <strong>端口号</strong> 可以找到 <strong>计算机上运行的应用程序</strong></p>
+<ul>
+<li><strong>SSH 服务器</strong> 的默认端口号是 <code>22</code>，如果是默认端口号，在连接的时候，可以省略</li>
+</ul>
+</li>
+<li>
+<p>常见服务端口号列表：</p>
+</li>
+</ul>
+<p>| 序号 | 服务 | 端口号 |
+| --- | --- | --- |
+| 01 | SSH 服务器 | 22 |
+| 02 | Web 服务器 | 80 |
+| 03 | HTTPS | 443 |
+| 04 | FTP 服务器 | 21 |</p>
+<blockquote>
+<p>提示：有关 <strong>端口号</strong>的详细内容，在就业班会详细讲解！</p>
+</blockquote>
+<h4>2) SSH 客户端的简单使用</h4>
+<p><code>bash
+ssh [-p port] user@remote</code></p>
+<ul>
+<li><code>user</code> 是在远程机器上的用户名，如果不指定的话默认为当前用户</li>
+<li><code>remote</code> 是远程机器的地址，可以是 <strong>IP</strong>／<strong>域名</strong>，或者是 <strong>后面会提到的别名</strong></li>
+<li><code>port</code> 是 <strong>SSH Server 监听的端口</strong>，如果不指定，就为默认值 <code>22</code></li>
+</ul>
+<blockquote>
+<p>提示：</p>
+<ul>
+<li>使用 <code>exit</code> 退出当前用户的登录</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li><code>ssh</code> 这个终端命令只能在 <code>Linux</code> 或者 <code>UNIX</code> 系统下使用</li>
+<li>如果在 <code>Windows</code> 系统中，可以安装 <code>PuTTY</code> 或者 <code>XShell</code> 客户端软件即可</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>在工作中，SSH 服务器的端口号很有可能<strong>不是 22</strong>，如果遇到这种情况就需要使用 <code>-p</code> 选项，指定正确的端口号，否则无法正常连接到服务器</li>
+</ul>
+</blockquote>
+<h4>3) Windows 下 SSH 客户端的安装</h4>
+<ul>
+<li><code>Putty</code> http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</li>
+<li><code>XShell</code> http://xshellcn.com</li>
+</ul>
+<blockquote>
+<p>建议从官方网站下载正式的安装程序</p>
+</blockquote>
+<h3>3.2 <code>scp</code>（掌握）</h3>
+<ul>
+<li>scp 就是 <code>secure copy</code>，是一个在 Linux 下用来进行 <strong>远程拷贝文件</strong> 的命令</li>
+<li>它的<strong>地址格式与 ssh 基本相同</strong>，<strong>需要注意的是</strong>，在指定端口时用的是大写的 <code>-P</code> 而不是小写的</li>
+</ul>
+<p><img src="media/14934132718311/002_SCP%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="002_SCP示意图" /></p>
+<p>```bash</p>
+<h1>把本地当前目录下的 01.py 文件 复制到 远程 家目录下的 Desktop/01.py</h1>
+<h1>注意：<code>:</code> 后面的路径如果不是绝对路径，则以用户的家目录作为参照路径</h1>
+<p>scp -P port 01.py user@remote:Desktop/01.py</p>
+<h1>把远程 家目录下的 Desktop/01.py 文件 复制到 本地当前目录下的 01.py</h1>
+<p>scp -P port user@remote:Desktop/01.py 01.py</p>
+<h1>加上 -r 选项可以传送文件夹</h1>
+<h1>把当前目录下的 demo 文件夹 复制到 远程 家目录下的 Desktop</h1>
+<p>scp -r demo user@remote:Desktop</p>
+<h1>把远程 家目录下的 Desktop 复制到 当前目录下的 demo 文件夹</h1>
+<p>scp -r user@remote:Desktop demo
+```</p>
+<p>| 选项 | 含义 |
+| --- | --- |
+| -r | 若给出的源文件是目录文件，则 scp 将递归复制该目录下的所有子目录和文件，目标文件必须为一个目录名 |
+| -P | 若远程 SSH 服务器的端口不是 22，需要使用大写字母 -P 选项指定端口 |</p>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><code>scp</code> 这个终端命令只能在 <code>Linux</code> 或者 <code>UNIX</code> 系统下使用</li>
+<li>如果在 <code>Windows</code> 系统中，可以安装 <code>PuTTY</code>，使用 <code>pscp</code> 命令行工具或者安装 <code>FileZilla</code> 使用 <code>FTP</code> 进行文件传输</li>
+</ul>
+</blockquote>
+<h4><code>FileZilla</code></h4>
+<ul>
+<li>官方网站：https://www.filezilla.cn/download/client</li>
+<li><code>FileZilla</code> 在传输文件时，使用的是 <code>FTP 服务</code> 而不是 <code>SSH 服务</code>，因此端口号应该设置为 <code>21</code></li>
+</ul>
+<h3>3.3 SSH 高级（知道）</h3>
+<ul>
+<li>免密码登录</li>
+<li>配置别名</li>
+</ul>
+<blockquote>
+<p>提示：有关 SSH 配置信息都保存在用户家目录下的 <code>.ssh</code> 目录下</p>
+</blockquote>
+<h4>1）免密码登录</h4>
+<h5>步骤</h5>
+<ul>
+<li>
+配置公钥
+<ul>
+<li>执行 <code>ssh-keygen</code> 即可生成 SSH 钥匙，一路回车即可</li>
+</ul>
+</li>
+<li>
+上传公钥到服务器
+<ul>
+<li>执行 <code>ssh-copy-id -p port user@remote</code>，可以让远程服务器记住我们的公钥</li>
+</ul>
+</li>
+</ul>
+<h5>示意图</h5>
+<p><img src="media/14934132718311/003_SSH%20%E5%85%8D%E5%AF%86%E7%A0%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="003_SSH 免密码示意图" /></p>
+<blockquote>
+<p>非对称加密算法</p>
+<ul>
+<li>使用 <strong>公钥</strong> 加密的数据，需要使用 <strong>私钥</strong> 解密</li>
+<li>使用 <strong>私钥</strong> 加密的数据，需要使用 <strong>公钥</strong> 解密</li>
+</ul>
+</blockquote>
+<h4>2) 配置别名</h4>
+<p>每次都输入 <code>ssh -p port user@remote</code>，时间久了会觉得很麻烦，特别是当 <code>user</code>, <code>remote</code> 和 <code>port</code> 都得输入，而且还不好记忆</p>
+<p>而 <strong>配置别名</strong> 可以让我们进一步偷懒，譬如用：<code>ssh mac</code> 来替代上面这么一长串，那么就在 <code>~/.ssh/config</code> 里面追加以下内容：</p>
+<p><code>Host mac
+    HostName ip地址
+    User itheima
+    Port 22</code></p>
+<p><strong>保存之后，即可用 <code>ssh mac</code> 实现远程登录了，<code>scp</code> 同样可以使用</strong></p>
+<h1>算数运算符</h1>
+<p><strong>计算机</strong>，顾名思义就是负责进行 <strong>数学计算</strong> 并且 <strong>存储计算结果</strong> 的电子设备</p>
+<h2>目标</h2>
+<ul>
+<li>算术运算符的基本使用</li>
+</ul>
+<h2>01. 算数运算符</h2>
+<ul>
+<li>算数运算符是 <strong>运算符的一种</strong></li>
+<li>是完成基本的算术运算使用的符号，用来处理四则运算</li>
+</ul>
+<p>| 运算符| 描述 | 实例 |
+| :---: | :---: | --- |
+| + | 加 | 10 + 20 = 30 |
+| - | 减 | 10 - 20 = -10 |
+| * | 乘 | 10 * 20 = 200 |
+| / | 除 | 10 / 20 = 0.5 |
+| // | 取整除 | 返回除法的整数部分（商） 9 // 2 输出结果 4 |
+| % | 取余数 | 返回除法的余数 9 % 2 = 1 |
+| ** | 幂 | 又称次方、乘方，2 ** 3 = 8 |</p>
+<ul>
+<li>在 Python 中 <code>*</code> 运算符还可以用于字符串，计算结果就是字符串重复指定次数的结果</li>
+</ul>
+<p><code>python
+In [1]: &quot;-&quot; * 50
+Out[1]: '----------------------------------------'</code></p>
+<h2>02. 算数运算符的优先级</h2>
+<ul>
+<li>
+<p>和数学中的运算符的优先级一致，在 Python 中进行数学计算时，同样也是：</p>
+<ul>
+<li><strong>先乘除后加减</strong></li>
+<li>同级运算符是 <strong>从左至右</strong> 计算</li>
+<li>可以使用 <code>()</code> 调整计算的优先级</li>
+</ul>
+</li>
+<li>
+<p>以下表格的算数优先级由高到最低顺序排列</p>
+</li>
+</ul>
+<p>| 运算符 | 描述 |
+| --- | --- |
+| ** | 幂 (最高优先级) |
+| * / % // | 乘、除、取余数、取整除 |
+| + - | 加法、减法 |</p>
+<ul>
+<li>
+例如：
+<ul>
+<li><code>2 + 3 * 5 = 17</code></li>
+<li><code>(2 + 3) * 5 = 25</code></li>
+<li><code>2 * 3 + 5 = 11</code></li>
+<li><code>2 * (3 + 5) = 16</code></li>
+</ul>
+</li>
+</ul>
+<h1>算数运算符</h1>
+<p><strong>计算机</strong>，顾名思义就是负责进行 <strong>数学计算</strong> 并且 <strong>存储计算结果</strong> 的电子设备</p>
+<h2>目标</h2>
+<ul>
+<li>算术运算符的基本使用</li>
+</ul>
+<h2>01. 算数运算符</h2>
+<ul>
+<li>算数运算符是 <strong>运算符的一种</strong></li>
+<li>是完成基本的算术运算使用的符号，用来处理四则运算</li>
+</ul>
+<p>| 运算符| 描述 | 实例 |
+| :---: | :---: | --- |
+| + | 加 | 10 + 20 = 30 |
+| - | 减 | 10 - 20 = -10 |
+| * | 乘 | 10 * 20 = 200 |
+| / | 除 | 10 / 20 = 0.5 |
+| // | 取整除 | 返回除法的整数部分（商） 9 // 2 输出结果 4 |
+| % | 取余数 | 返回除法的余数 9 % 2 = 1 |
+| ** | 幂 | 又称次方、乘方，2 ** 3 = 8 |</p>
+<ul>
+<li>在 Python 中 <code>*</code> 运算符还可以用于字符串，计算结果就是字符串重复指定次数的结果</li>
+</ul>
+<p><code>python
+In [1]: &quot;-&quot; * 50
+Out[1]: '----------------------------------------'</code></p>
+<h2>02. 算数运算符的优先级</h2>
+<ul>
+<li>
+<p>和数学中的运算符的优先级一致，在 Python 中进行数学计算时，同样也是：</p>
+<ul>
+<li><strong>先乘除后加减</strong></li>
+<li>同级运算符是 <strong>从左至右</strong> 计算</li>
+<li>可以使用 <code>()</code> 调整计算的优先级</li>
+</ul>
+</li>
+<li>
+<p>以下表格的算数优先级由高到最低顺序排列</p>
+</li>
+</ul>
+<p>| 运算符 | 描述 |
+| --- | --- |
+| ** | 幂 (最高优先级) |
+| * / % // | 乘、除、取余数、取整除 |
+| + - | 加法、减法 |</p>
+<ul>
+<li>
+例如：
+<ul>
+<li><code>2 + 3 * 5 = 17</code></li>
+<li><code>(2 + 3) * 5 = 25</code></li>
+<li><code>2 * 3 + 5 = 11</code></li>
+<li><code>2 * (3 + 5) = 16</code></li>
+</ul>
+</li>
+</ul>
+<h1>变量的基本使用</h1>
+<blockquote>
+<p><strong>程序就是用来处理数据的，而变量就是用来存储数据的</strong></p>
+</blockquote>
+<h2>目标</h2>
+<ul>
+<li>变量定义</li>
+<li>变量的类型</li>
+<li>变量的命名</li>
+</ul>
+<h2>01. 变量定义</h2>
+<ul>
+<li>在 Python 中，每个变量 <strong>在使用前都必须赋值</strong>，变量 <strong>赋值以后</strong> 该变量 <strong>才会被创建</strong></li>
+<li>
+等号（=）用来给变量赋值
+<ul>
+<li><code>=</code> 左边是一个变量名</li>
+<li><code>=</code> 右边是存储在变量中的值</li>
+</ul>
+</li>
+</ul>
+<p><code>python
+变量名 = 值</code></p>
+<blockquote>
+<p>变量定义之后，后续就可以直接使用了</p>
+</blockquote>
+<h3>1) 变量演练1 —— iPython</h3>
+<p>```python</p>
+<h1>定义 qq_number 的变量用来保存 qq 号码</h1>
+<p>In [1]: qq_number = &quot;1234567&quot;</p>
+<h1>输出 qq_number 中保存的内容</h1>
+<p>In [2]: qq_number
+Out[2]: '1234567'</p>
+<h1>定义 qq_password 的变量用来保存 qq 密码</h1>
+<p>In [3]: qq_password = &quot;123&quot;</p>
+<h1>输出 qq_password 中保存的内容</h1>
+<p>In [4]: qq_password
+Out[4]: '123'
+```</p>
+<blockquote>
+<p>使用交互式方式，如果要查看变量内容，直接输入变量名即可，不需要使用 <code>print</code> 函数</p>
+</blockquote>
+<h3>2) 变量演练 2 —— PyCharm</h3>
+<p>```python</p>
+<h1>定义 qq 号码变量</h1>
+<p>qq_number = &quot;1234567&quot;</p>
+<h1>定义 qq 密码变量</h1>
+<p>qq_password = &quot;123&quot;</p>
+<h1>在程序中，如果要输出变量的内容，需要使用 print 函数</h1>
+<p>print(qq<em>number)
+print(qq</em>password)
+```</p>
+<blockquote>
+<p>使用解释器执行，如果要输出变量的内容，必须要要使用 <code>print</code> 函数</p>
+</blockquote>
+<h3>3) 变量演练 3 —— 超市买苹果</h3>
+<blockquote>
+<ul>
+<li>可以用 <strong>其他变量的计算结果</strong> 来定义变量</li>
+<li>变量定义之后，后续就可以直接使用了</li>
+</ul>
+</blockquote>
+<p><strong>需求</strong></p>
+<ul>
+<li>苹果的价格是 <strong>8.5 元/斤</strong></li>
+<li>买了 <strong>7.5 斤</strong> 苹果</li>
+<li>计算付款金额</li>
+</ul>
+<p>```python</p>
+<h1>定义苹果价格变量</h1>
+<p>price = 8.5</p>
+<h1>定义购买重量</h1>
+<p>weight = 7.5</p>
+<h1>计算金额</h1>
+<p>money = price * weight</p>
+<p>print(money)
+```</p>
+<h4>思考题</h4>
+<ul>
+<li>如果 <strong>只要买苹果，就返 5 块钱</strong></li>
+<li>请重新计算购买金额</li>
+</ul>
+<p>```python</p>
+<h1>定义苹果价格变量</h1>
+<p>price = 8.5</p>
+<h1>定义购买重量</h1>
+<p>weight = 7.5</p>
+<h1>计算金额</h1>
+<p>money = price * weight</p>
+<h1>只要买苹果就返 5 元</h1>
+<p>money = money - 5
+print(money)
+```</p>
+<p><strong>提问</strong></p>
+<ul>
+<li>
+上述代码中，一共定义有几个变量？
+<ul>
+<li>三个：<code>price</code>／<code>weight</code>／<code>money</code></li>
+</ul>
+</li>
+<li>
+<code>money = money - 5</code> 是在定义新的变量还是在使用变量？
+<ul>
+<li>直接使用之前已经定义的变量</li>
+<li>变量名 只有在 <strong>第一次出现</strong> 才是 <strong>定义变量</strong></li>
+<li>变量名 再次出现，不是定义变量，而是直接使用之前定义过的变量</li>
+</ul>
+</li>
+<li>
+在程序开发中，可以修改之前定义变量中保存的值吗？
+<ul>
+<li>可以</li>
+<li>变量中存储的值，就是可以 <strong>变</strong> 的</li>
+</ul>
+</li>
+</ul>
+<h2>02. 变量的类型</h2>
+<ul>
+<li>
+在内存中创建一个变量，会包括：
+<ol>
+<li>变量的名称</li>
+<li>变量保存的数据</li>
+<li>变量存储数据的类型</li>
+<li>变量的地址（标示）</li>
+</ol>
+</li>
+</ul>
+<h3>2.1 变量类型的演练 —— 个人信息</h3>
+<p><strong>需求</strong></p>
+<ul>
+<li>定义变量保存小明的个人信息</li>
+<li>姓名：<strong>小明</strong></li>
+<li>年龄：<strong>18</strong> 岁</li>
+<li>性别：<strong>是</strong>男生</li>
+<li>身高：<strong>1.75</strong> 米</li>
+<li>体重：<strong>75.0</strong> 公斤</li>
+</ul>
+<blockquote>
+<p>利用 <strong>单步调试</strong> 确认变量中保存数据的类型</p>
+</blockquote>
+<p><strong>提问</strong></p>
+<ol>
+<li>
+在演练中，一共有几种数据类型？
+<ul>
+<li>4 种</li>
+<li><code>str</code> —— 字符串</li>
+<li><code>bool</code> —— 布尔（真假）</li>
+<li><code>int</code> —— 整数</li>
+<li><code>float</code> —— 浮点数（小数）</li>
+</ul>
+</li>
+<li>
+在 <code>Python</code> 中定义变量时需要指定类型吗？
+<ul>
+<li>不需要</li>
+<li><code>Python</code> 可以根据 <code>=</code> 等号右侧的值，自动推导出变量中存储数据的类型</li>
+</ul>
+</li>
+</ol>
+<h3>2.2 变量的类型</h3>
+<ul>
+<li>在 <code>Python</code> 中定义变量是 <strong>不需要指定类型</strong>（在其他很多高级语言中都需要）</li>
+<li>数据类型可以分为 <strong>数字型</strong> 和 <strong>非数字型</strong></li>
+<li>
+数字型
+<ul>
+<li>整型 (<code>int</code>)</li>
+<li>浮点型（<code>float</code>）</li>
+<li>
+布尔型（<code>bool</code>） 
+<ul>
+<li>真 <code>True</code> <code>非 0 数</code> —— <strong>非零即真</strong></li>
+<li>假 <code>False</code> <code>0</code></li>
+</ul>
+</li>
+<li>
+复数型 (<code>complex</code>)
+<ul>
+<li>主要用于科学计算，例如：平面场问题、波动问题、电感电容等问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+非数字型
+<ul>
+<li>字符串</li>
+<li>列表</li>
+<li>元组</li>
+<li>字典</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：在 Python 2.x 中，<strong>整数</strong> 根据保存数值的长度还分为：
+  * <code>int</code>（整数）
+  * <code>long</code>（长整数）</p>
+</blockquote>
+<ul>
+<li>使用 <code>type</code> 函数可以查看一个变量的类型</li>
+</ul>
+<p><code>python
+In [1]: type(name)</code></p>
+<h3>2.3 不同类型变量之间的计算</h3>
+<h4>1) <strong>数字型变量</strong> 之间可以直接计算</h4>
+<ul>
+<li>在 Python 中，两个数字型变量是可以直接进行 算数运算的</li>
+<li>
+如果变量是 <code>bool</code> 型，在计算时
+<ul>
+<li><code>True</code> 对应的数字是 <code>1</code></li>
+<li><code>False</code> 对应的数字是 <code>0</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>演练步骤</strong></p>
+<ol>
+<li>定义整数 <code>i = 10</code></li>
+<li>定义浮点数 <code>f = 10.5</code></li>
+<li>
+<p>定义布尔型 <code>b = True</code></p>
+</li>
+<li>
+<p>在 iPython 中，使用上述三个变量相互进行算术运算</p>
+</li>
+</ol>
+<h4>2) <strong>字符串变量</strong> 之间使用 <code>+</code> 拼接字符串</h4>
+<ul>
+<li>在 Python 中，字符串之间可以使用 <code>+</code> 拼接生成新的字符串</li>
+</ul>
+<p>```python
+In [1]: first_name = &quot;三&quot;</p>
+<p>In [2]: last_name = &quot;张&quot;</p>
+<p>In [3]: first<em>name + last</em>name
+Out[3]: '三张'
+```</p>
+<h4>3) <strong>字符串变量</strong> 可以和 <strong>整数</strong> 使用 <code>*</code> 重复拼接相同的字符串</h4>
+<p><code>python
+In [1]: &quot;-&quot; * 50
+Out[1]: '--------------------------------------------------'</code></p>
+<h4>4) <strong>数字型变量</strong> 和 <strong>字符串</strong> 之间 <strong>不能进行其他计算</strong></h4>
+<p>```python
+In [1]: first_name = &quot;zhang&quot;</p>
+<p>In [2]: x = 10</p>
+<h2>In [3]: x + first_name</h2>
+<p>TypeError: unsupported operand type(s) for +: 'int' and 'str'
+类型错误：<code>+</code> 不支持的操作类型：<code>int</code> 和 <code>str</code>
+```</p>
+<h3>2.4 变量的输入</h3>
+<ul>
+<li>所谓 <strong>输入</strong>，就是 <strong>用代码</strong> <strong>获取</strong> 用户通过 <strong>键盘</strong> 输入的信息</li>
+<li>例如：去银行取钱，在 ATM 上输入密码</li>
+<li>在 Python 中，如果要获取用户在 <strong>键盘</strong> 上的输入信息，需要使用到 <code>input</code> 函数</li>
+</ul>
+<h4>1) 关于函数</h4>
+<ul>
+<li>一个 <strong>提前准备好的功能</strong>(别人或者自己写的代码)，<strong>可以直接使用</strong>，而 <strong>不用关心内部的细节</strong></li>
+<li>目前已经学习过的函数</li>
+</ul>
+<p>| 函数 | 说明 |
+| --- | --- |
+| print(x) | 将 x 输出到控制台 |
+| type(x) | 查看 x 的变量类型 |</p>
+<h4>2) input 函数实现键盘输入</h4>
+<ul>
+<li>在 Python 中可以使用 <code>input</code> 函数从键盘等待用户的输入</li>
+<li>用户输入的 <strong>任何内容</strong> Python 都认为是一个 <strong>字符串</strong></li>
+<li>语法如下：</li>
+</ul>
+<p><code>python
+字符串变量 = input(&quot;提示信息：&quot;)</code></p>
+<h4>3) 类型转换函数</h4>
+<p>| 函数 | 说明 |
+| --- | --- |
+| int(x) | 将 x 转换为一个整数 |
+| float(x) | 将 x 转换到一个浮点数 |</p>
+<h4>4) 变量输入演练 —— 超市买苹果增强版</h4>
+<p><strong>需求</strong></p>
+<ul>
+<li><strong>收银员输入</strong> 苹果的价格，单位：<strong>元／斤</strong></li>
+<li><strong>收银员输入</strong> 用户购买苹果的重量，单位：<strong>斤</strong></li>
+<li>计算并且 <strong>输出</strong> 付款金额</li>
+</ul>
+<h5>演练方式 1</h5>
+<p>```python</p>
+<h1>1. 输入苹果单价</h1>
+<p>price_str = input(&quot;请输入苹果价格：&quot;)</p>
+<h1>2. 要求苹果重量</h1>
+<p>weight_str = input(&quot;请输入苹果重量：&quot;)</p>
+<h1>3. 计算金额</h1>
+<h1>1&gt; 将苹果单价转换成小数</h1>
+<p>price = float(price_str)</p>
+<h1>2&gt; 将苹果重量转换成小数</h1>
+<p>weight = float(weight_str)</p>
+<h1>3&gt; 计算付款金额</h1>
+<p>money = price * weight</p>
+<p>print(money)
+```</p>
+<p><strong>提问</strong></p>
+<ol>
+<li>
+演练中，针对 <strong>价格</strong> 定义了几个变量？
+<ul>
+<li><strong>两个</strong></li>
+<li><code>price_str</code> 记录用户输入的价格字符串</li>
+<li><code>price</code> 记录转换后的价格数值</li>
+</ul>
+</li>
+<li><strong>思考</strong> —— 如果开发中，需要用户通过控制台 输入 <strong>很多个 数字<strong>，针对每一个数字都要定义两个变量，</strong>方便吗</strong>？ </li>
+</ol>
+<h5>演练方式 2 —— 买苹果改进版</h5>
+<ol>
+<li><strong>定义</strong> 一个 <strong>浮点变量</strong> 接收用户输入的同时，就使用 <code>float</code> 函数进行转换</li>
+</ol>
+<p><code>python
+price = float(input(&quot;请输入价格:&quot;))</code></p>
+<ul>
+<li>
+<p>改进后的好处：</p>
+</li>
+<li>
+<p>节约空间，只需要为一个变量分配空间</p>
+</li>
+<li>
+<p>起名字方便，不需要为中间变量起名字</p>
+</li>
+<li>
+<p>改进后的“缺点”：</p>
+</li>
+<li>
+<p>初学者需要知道，两个函数能够嵌套使用，稍微有一些难度</p>
+</li>
+</ul>
+<p><strong>提示</strong></p>
+<ul>
+<li>如果输入的不是一个数字，程序执行时会出错，有关数据转换的高级话题，后续会讲！</li>
+</ul>
+<h3>2.5 变量的格式化输出</h3>
+<blockquote>
+<p>苹果单价 <code>9.00</code> 元／斤，购买了 <code>5.00</code> 斤，需要支付 <code>45.00</code> 元</p>
+</blockquote>
+<ul>
+<li>在 Python 中可以使用 <code>print</code> 函数将信息输出到控制台</li>
+<li>如果希望输出文字信息的同时，<strong>一起输出</strong> <strong>数据</strong>，就需要使用到 <strong>格式化操作符</strong></li>
+<li>
+<code>%</code> 被称为 <strong>格式化操作符</strong>，专门用于处理字符串中的格式
+<ul>
+<li>包含 <code>%</code> 的字符串，被称为 <strong>格式化字符串</strong></li>
+<li><code>%</code> 和不同的 <strong>字符</strong> 连用，<strong>不同类型的数据</strong> 需要使用 <strong>不同的格式化字符</strong></li>
+</ul>
+</li>
+</ul>
+<p>| 格式化字符 | 含义 |
+| --- | --- |
+| %s | 字符串 |
+| %d | 有符号十进制整数，<code>%06d</code> 表示输出的整数显示位数，不足的地方使用 <code>0</code> 补全 |
+| %f | 浮点数，<code>%.2f</code> 表示小数点后只显示两位 |
+| %% | 输出 <code>%</code> |</p>
+<ul>
+<li>语法格式如下：</li>
+</ul>
+<p>```python
+print(&quot;格式化字符串&quot; % 变量1)</p>
+<p>print(&quot;格式化字符串&quot; % (变量1, 变量2...))
+```</p>
+<h4>格式化输出演练 —— 基本练习</h4>
+<p><strong>需求</strong></p>
+<ol>
+<li>定义字符串变量 <code>name</code>，输出 <strong>我的名字叫 小明，请多多关照！</strong></li>
+<li>定义整数变量 <code>student_no</code>，输出 <strong>我的学号是 000001</strong></li>
+<li>定义小数 <code>price</code>、<code>weight</code>、<code>money</code>，输出 <strong>苹果单价 9.00 元／斤，购买了 5.00 斤，需要支付 45.00 元</strong></li>
+<li>定义一个小数 <code>scale</code>，输出 <strong>数据比例是 10.00%</strong></li>
+</ol>
+<p><code>python
+print(&quot;我的名字叫 %s，请多多关照！&quot; % name)
+print(&quot;我的学号是 %06d&quot; % student_no)
+print(&quot;苹果单价 %.02f 元／斤，购买 %.02f 斤，需要支付 %.02f 元&quot; % (price, weight, money))
+print(&quot;数据比例是 %.02f%%&quot; % (scale * 100))</code></p>
+<h4>课后练习 —— 个人名片</h4>
+<p><strong>需求</strong></p>
+<ul>
+<li>在控制台依次提示用户输入：<strong>姓名</strong>、<strong>公司<strong>、</strong>职位</strong>、<strong>电话</strong>、<strong>邮箱</strong></li>
+<li>按照以下格式输出：</li>
+</ul>
+<p>```</p>
+<hr />
+<p>公司名称</p>
+<p>姓名 (职位)</p>
+<p>电话：电话
+邮箱：邮箱</p>
+<hr />
+<p>```</p>
+<p>实现代码如下：</p>
+<p>```python
+&quot;&quot;&quot;
+在控制台依次提示用户输入：姓名、公司、职位、电话、电子邮箱
+&quot;&quot;&quot;
+name = input(&quot;请输入姓名：&quot;)
+company = input(&quot;请输入公司：&quot;)
+title = input(&quot;请输入职位：&quot;)
+phone = input(&quot;请输入电话：&quot;)
+email = input(&quot;请输入邮箱：&quot;)</p>
+<p>print(&quot;<em>&quot; * 50)
+print(company)
+print()
+print(&quot;%s (%s)&quot; % (name, title))
+print()
+print(&quot;电话：%s&quot; % phone)
+print(&quot;邮箱：%s&quot; % email)
+print(&quot;</em>&quot; * 50)</p>
+<p>```</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

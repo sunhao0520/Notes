@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>单例</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>单例</h1>
+<h2>目标</h2>
+<ul>
+<li>单例设计模式</li>
+<li><code>__new__</code> 方法</li>
+<li>Python 中的单例</li>
+</ul>
+<h2>01. 单例设计模式</h2>
+<ul>
+<li>
+<p>设计模式</p>
+<ul>
+<li><strong>设计模式</strong> 是 <strong>前人工作的总结和提炼</strong>，通常，被人们广泛流传的设计模式都是针对 <strong>某一特定问题</strong> 的成熟的解决方案</li>
+<li>使用 <strong>设计模式</strong> 是为了可重用代码、让代码更容易被他人理解、保证代码可靠性</li>
+</ul>
+</li>
+<li>
+<p>单例设计模式</p>
+<ul>
+<li><strong>目的</strong> —— 让 <strong>类</strong> 创建的对象，在系统中 <strong>只有</strong> <strong>唯一的一个实例</strong></li>
+<li>每一次执行 <code>类名()</code> 返回的对象，<strong>内存地址是相同的</strong></li>
+</ul>
+</li>
+</ul>
+<h3>单例设计模式的应用场景</h3>
+<ul>
+<li><strong>音乐播放</strong> 对象</li>
+<li><strong>回收站</strong> 对象</li>
+<li><strong>打印机</strong> 对象</li>
+<li>……</li>
+</ul>
+<h2>02. <code>__new__</code> 方法</h2>
+<ul>
+<li>使用 <strong>类名()</strong> 创建对象时，<code>Python</code> 的解释器 <strong>首先</strong> 会 调用 <code>__new__</code> 方法为对象 <strong>分配空间</strong></li>
+<li>
+<code>__new__</code> 是一个 由 <code>object</code> 基类提供的 <strong>内置的静态方法</strong>，主要作用有两个：
+<ul>
+<li>1) 在内存中为对象 <strong>分配空间</strong></li>
+<li>2) <strong>返回</strong> 对象的引用</li>
+</ul>
+</li>
+<li><code>Python</code> 的解释器获得对象的 <strong>引用</strong> 后，将引用作为 <strong>第一个参数</strong>，传递给 <code>__init__</code> 方法</li>
+</ul>
+<blockquote>
+<p>重写 <code>__new__</code> 方法 的代码非常固定！</p>
+</blockquote>
+<ul>
+<li>重写 <code>__new__</code> 方法 <strong>一定要</strong> <code>return super().__new__(cls)</code> </li>
+<li>否则 Python 的解释器 <strong>得不到</strong> 分配了空间的 <strong>对象引用<strong>，</strong>就不会调用对象的初始化方法</strong></li>
+<li>注意：<code>__new__</code> 是一个静态方法，在调用时需要 <strong>主动传递</strong> <code>cls</code> 参数</li>
+</ul>
+<p><img src="media/15016413216376/022_%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D%E7%A9%BA%E9%97%B4%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96.png" alt="022_对象分配空间和初始化-w838" /></p>
+<p><strong>示例代码</strong></p>
+<p>```python
+class MusicPlayer(object):</p>
+<pre><code>def __new__(cls, *args, **kwargs):
+    # 如果不返回任何结果，
+    return super().__new__(cls)
+
+def __init__(self):
+    print(&quot;初始化音乐播放对象&quot;)
+</code></pre>
+
+<p>player = MusicPlayer()</p>
+<p>print(player)</p>
+<p>```</p>
+<h2>03. Python 中的单例</h2>
+<ul>
+<li>
+<strong>单例</strong> —— 让 <strong>类</strong> 创建的对象，在系统中 <strong>只有</strong> <strong>唯一的一个实例</strong>
+<ol>
+<li>定义一个 <strong>类属性</strong>，初始值是 <code>None</code>，用于记录 <strong>单例对象的引用</strong></li>
+<li>重写 <code>__new__</code> 方法</li>
+<li>如果 <strong>类属性</strong> <code>is None</code>，调用父类方法分配空间，并在类属性中记录结果</li>
+<li>返回 <strong>类属性</strong> 中记录的 <strong>对象引用</strong></li>
+</ol>
+</li>
+</ul>
+<p><img src="media/15016413216376/023_%E5%8D%95%E4%BE%8B%E6%B5%81%E7%A8%8B.png" alt="023_单例流程-w893" /></p>
+<p>```python
+class MusicPlayer(object):</p>
+<pre><code># 定义类属性记录单例对象引用
+instance = None
+
+def __new__(cls, *args, **kwargs):
+
+    # 1. 判断类属性是否已经被赋值
+    if cls.instance is None:
+        cls.instance = super().__new__(cls)
+
+    # 2. 返回类属性的单例引用
+    return cls.instance
+</code></pre>
+
+<p>```</p>
+<h3>只执行一次初始化工作</h3>
+<ul>
+<li>
+在每次使用 <code>类名()</code> 创建对象时，<code>Python</code> 的解释器都会自动调用两个方法：
+<ul>
+<li><code>__new__</code> 分配空间</li>
+<li><code>__init__</code> 对象初始化</li>
+</ul>
+</li>
+<li>在上一小节对 <code>__new__</code> 方法改造之后，每次都会得到 <strong>第一次被创建对象的引用</strong></li>
+<li>但是：<strong>初始化方法还会被再次调用</strong></li>
+</ul>
+<p><strong>需求</strong></p>
+<ul>
+<li>让 <strong>初始化动作</strong> 只被 <strong>执行一次</strong></li>
+</ul>
+<p><strong>解决办法</strong></p>
+<ol>
+<li>定义一个类属性 <code>init_flag</code> 标记是否 <strong>执行过初始化动作</strong>，初始值为 <code>False</code></li>
+<li>在 <code>__init__</code> 方法中，判断 <code>init_flag</code>，如果为 <code>False</code> 就执行初始化动作</li>
+<li>然后将 <code>init_flag</code> 设置为 <code>True</code></li>
+<li>这样，再次 <strong>自动</strong> 调用 <code>__init__</code> 方法时，<strong>初始化动作就不会被再次执行</strong> 了</li>
+</ol>
+<p>```python
+class MusicPlayer(object):</p>
+<pre><code># 记录第一个被创建对象的引用
+instance = None
+# 记录是否执行过初始化动作
+init_flag = False
+
+def __new__(cls, *args, **kwargs):
+
+    # 1. 判断类属性是否是空对象
+    if cls.instance is None:
+        # 2. 调用父类的方法，为第一个对象分配空间
+        cls.instance = super().__new__(cls)
+
+    # 3. 返回类属性保存的对象引用
+    return cls.instance
+
+def __init__(self):
+
+    if not MusicPlayer.init_flag:
+        print(&quot;初始化音乐播放器&quot;)
+
+        MusicPlayer.init_flag = True
+</code></pre>
+
+<h1>创建多个对象</h1>
+<p>player1 = MusicPlayer()
+print(player1)</p>
+<p>player2 = MusicPlayer()
+print(player2)</p>
+<p>```</p>
+<h1>多态</h1>
+<h2>目标</h2>
+<ul>
+<li>多态</li>
+</ul>
+<p><strong>面向对象三大特性</strong></p>
+<ol>
+<li>
+<strong>封装</strong> 根据 <strong>职责</strong> 将 <strong>属性</strong> 和 <strong>方法</strong> <strong>封装</strong> 到一个抽象的 <strong>类</strong> 中
+<ul>
+<li>定义类的准则 </li>
+</ul>
+</li>
+<li>
+<strong>继承</strong> <strong>实现代码的重用</strong>，相同的代码不需要重复的编写
+<ul>
+<li>设计类的技巧 </li>
+<li>子类针对自己特有的需求，编写特定的代码</li>
+</ul>
+</li>
+<li>
+<p><strong>多态</strong> 不同的 <strong>子类对象</strong> 调用相同的 <strong>父类方法</strong>，产生不同的执行结果</p>
+<ul>
+<li><strong>多态</strong> 可以 <strong>增加代码的灵活度</strong></li>
+<li>以 <strong>继承</strong> 和 <strong>重写父类方法</strong> 为前提</li>
+<li>是调用方法的技巧，<strong>不会影响到类的内部设计</strong></li>
+</ul>
+<p><img src="media/15012536156932/016_%E5%A4%9A%E6%80%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="016_多态示意图-w384" /></p>
+</li>
+</ol>
+<h2>多态案例演练</h2>
+<p><strong>需求</strong></p>
+<ol>
+<li>
+在 <code>Dog</code> 类中封装方法 <code>game</code>
+<ul>
+<li>普通狗只是简单的玩耍</li>
+</ul>
+</li>
+<li>
+定义 <code>XiaoTianDog</code> 继承自 <code>Dog</code>，并且重写 <code>game</code> 方法
+<ul>
+<li>哮天犬需要在天上玩耍</li>
+</ul>
+</li>
+<li>
+定义 <code>Person</code> 类，并且封装一个 <strong>和狗玩</strong> 的方法
+<ul>
+<li>在方法内部，直接让 <strong>狗对象</strong> 调用 <code>game</code> 方法</li>
+</ul>
+</li>
+</ol>
+<p><img src="media/15012536156932/016_%E5%A4%9A%E6%80%81.png" alt="016_多态-w701" /></p>
+<p><strong>案例小结</strong></p>
+<ul>
+<li>
+<code>Person</code> 类中只需要让 <strong>狗对象</strong> 调用 <code>game</code> 方法，而不关心具体是 <strong>什么狗</strong>
+<ul>
+<li><code>game</code> 方法是在 <code>Dog</code> 父类中定义的</li>
+</ul>
+</li>
+<li>在程序执行时，传入不同的 <strong>狗对象</strong> 实参，就会产生不同的执行效果</li>
+</ul>
+<blockquote>
+<p><strong>多态</strong> 更容易编写出出通用的代码，做出通用的编程，以适应需求的不断变化！</p>
+</blockquote>
+<p>```python
+class Dog(object):</p>
+<pre><code>def __init__(self, name):
+    self.name = name
+
+def game(self):
+    print(&quot;%s 蹦蹦跳跳的玩耍...&quot; % self.name)
+</code></pre>
+
+<p>class XiaoTianDog(Dog):</p>
+<pre><code>def game(self):
+    print(&quot;%s 飞到天上去玩耍...&quot; % self.name)
+</code></pre>
+
+<p>class Person(object):</p>
+<pre><code>def __init__(self, name):
+    self.name = name
+
+def game_with_dog(self, dog):
+
+    print(&quot;%s 和 %s 快乐的玩耍...&quot; % (self.name, dog.name))
+
+    # 让狗玩耍
+    dog.game()
+</code></pre>
+
+<h1>1. 创建一个狗对象</h1>
+<h1>wangcai = Dog(&quot;旺财&quot;)</h1>
+<p>wangcai = XiaoTianDog(&quot;飞天旺财&quot;)</p>
+<h1>2. 创建一个小明对象</h1>
+<p>xiaoming = Person(&quot;小明&quot;)</p>
+<h1>3. 让小明调用和狗玩的方法</h1>
+<p>xiaoming.game<em>with</em>dog(wangcai)</p>
+<p>```</p>
+<h1>继承</h1>
+<h2>目标</h2>
+<ul>
+<li>单继承</li>
+<li>多继承</li>
+</ul>
+<p><strong>面向对象三大特性</strong></p>
+<ol>
+<li><strong>封装</strong> 根据 <strong>职责</strong> 将 <strong>属性</strong> 和 <strong>方法</strong> <strong>封装</strong> 到一个抽象的 <strong>类</strong> 中</li>
+<li><strong>继承</strong> <strong>实现代码的重用</strong>，相同的代码不需要重复的编写</li>
+<li><strong>多态</strong> 不同的对象调用相同的方法，产生不同的执行结果，<strong>增加代码的灵活度</strong></li>
+</ol>
+<h2>01. 单继承</h2>
+<h3>1.1 继承的概念、语法和特点</h3>
+<p><strong>继承的概念</strong>：<strong>子类</strong> 拥有 <strong>父类</strong> 的所有 <strong>方法</strong> 和 <strong>属性</strong></p>
+<p><img src="media/15006307099794/011_%E7%BB%A7%E6%89%BF%E5%AF%B9%E6%AF%94%E5%9B%BE%E7%A4%BA.png" alt="011_继承对比图示" /></p>
+<h4>1) 继承的语法</h4>
+<p>```python
+class 类名(父类名):</p>
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+<ul>
+<li><strong>子类</strong> 继承自 <strong>父类</strong>，可以直接 <strong>享受</strong> 父类中已经封装好的方法，不需要再次开发</li>
+<li><strong>子类</strong> 中应该根据 <strong>职责</strong>，封装 <strong>子类特有的</strong> <strong>属性和方法</strong></li>
+</ul>
+<h4>2) 专业术语</h4>
+<ul>
+<li><code>Dog</code> 类是 <code>Animal</code> 类的<strong>子类</strong>，<code>Animal</code> 类是 <code>Dog</code> 类的<strong>父类<strong>，<code>Dog</code> 类从 <code>Animal</code> 类</strong>继承</strong></li>
+<li><code>Dog</code> 类是 <code>Animal</code> 类的<strong>派生类</strong>，<code>Animal</code> 类是 <code>Dog</code> 类的<strong>基类<strong>，<code>Dog</code> 类从 <code>Animal</code> 类</strong>派生</strong></li>
+</ul>
+<h4>3) 继承的传递性</h4>
+<ul>
+<li><code>C</code> 类从 <code>B</code> 类继承，<code>B</code> 类又从 <code>A</code> 类继承</li>
+<li>那么 <code>C</code> 类就具有 <code>B</code> 类和 <code>A</code> 类的所有属性和方法</li>
+</ul>
+<p><strong>子类</strong> 拥有 <strong>父类</strong> 以及 <strong>父类的父类</strong> 中封装的所有 <strong>属性</strong> 和 <strong>方法</strong></p>
+<p><strong>提问</strong></p>
+<p><strong>哮天犬</strong> 能够调用 <code>Cat</code> 类中定义的 <code>catch</code> 方法吗？</p>
+<p><strong>答案</strong></p>
+<p><strong>不能</strong>，因为 <strong>哮天犬</strong> 和 <code>Cat</code> 之间没有 <strong>继承</strong> 关系</p>
+<h3>1.2 方法的重写</h3>
+<ul>
+<li><strong>子类</strong> 拥有 <strong>父类</strong> 的所有 <strong>方法</strong> 和 <strong>属性</strong></li>
+<li><strong>子类</strong> 继承自 <strong>父类</strong>，可以直接 <strong>享受</strong> 父类中已经封装好的方法，不需要再次开发</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>当 <strong>父类</strong> 的方法实现不能满足子类需求时，可以对方法进行 <strong>重写(override)</strong></li>
+</ul>
+<p><img src="media/15006307099794/012_%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99.png" alt="012_继承方法的重写-w203" /></p>
+<p><strong>重写</strong> 父类方法有两种情况：</p>
+<ol>
+<li><strong>覆盖</strong> 父类的方法</li>
+<li>对父类方法进行 <strong>扩展</strong></li>
+</ol>
+<h4>1) 覆盖父类的方法</h4>
+<ul>
+<li>如果在开发中，<strong>父类的方法实现</strong> 和 <strong>子类的方法实现<strong>，</strong>完全不同</strong></li>
+<li>就可以使用 <strong>覆盖</strong> 的方式，<strong>在子类中</strong> <strong>重新编写</strong> 父类的方法实现</li>
+</ul>
+<blockquote>
+<p>具体的实现方式，就相当于在 <strong>子类中</strong> 定义了一个 <strong>和父类同名的方法并且实现</strong></p>
+</blockquote>
+<p>重写之后，在运行时，<strong>只会调用</strong> 子类中重写的方法，而不再会调用 <strong>父类封装的方法</strong></p>
+<h4>2) 对父类方法进行 <strong>扩展</strong></h4>
+<ul>
+<li>
+如果在开发中，<strong>子类的方法实现</strong> 中 <strong>包含</strong> <strong>父类的方法实现</strong>
+<ul>
+<li><strong>父类原本封装的方法实现</strong> 是 <strong>子类方法的一部分</strong></li>
+</ul>
+</li>
+<li>
+就可以使用 <strong>扩展</strong> 的方式
+<ol>
+<li><strong>在子类中</strong> <strong>重写</strong> 父类的方法</li>
+<li>在需要的位置使用 <code>super().父类方法</code> 来调用父类方法的执行</li>
+<li>代码其他的位置针对子类的需求，编写 <strong>子类特有的代码实现</strong></li>
+</ol>
+</li>
+</ul>
+<h5>关于 <code>super</code></h5>
+<ul>
+<li>在 <code>Python</code> 中 <code>super</code> 是一个 <strong>特殊的类</strong></li>
+<li><code>super()</code> 就是使用 <code>super</code> 类创建出来的对象</li>
+<li><strong>最常</strong> 使用的场景就是在 <strong>重写父类方法时</strong>，调用 <strong>在父类中封装的方法实现</strong></li>
+</ul>
+<h5>调用父类方法的另外一种方式（知道）</h5>
+<blockquote>
+<p>在 <code>Python 2.x</code> 时，如果需要调用父类的方法，还可以使用以下方式：</p>
+</blockquote>
+<p><code>python
+父类名.方法(self)</code></p>
+<ul>
+<li>这种方式，目前在 <code>Python 3.x</code> 还支持这种方式</li>
+<li>这种方法 <strong>不推荐使用</strong>，因为一旦 <strong>父类发生变化</strong>，方法调用位置的 <strong>类名</strong> 同样需要修改</li>
+</ul>
+<p><strong>提示</strong></p>
+<ul>
+<li>在开发时，<code>父类名</code> 和 <code>super()</code> 两种方式不要混用</li>
+<li>如果使用 <strong>当前子类名</strong> 调用方法，会形成递归调用，<strong>出现死循环</strong></li>
+</ul>
+<h3>1.3 父类的 私有属性 和 私有方法</h3>
+<ol>
+<li><strong>子类对象</strong> <strong>不能</strong> 在自己的方法内部，<strong>直接</strong> 访问 父类的 <strong>私有属性</strong> 或 <strong>私有方法</strong></li>
+<li><strong>子类对象</strong> 可以通过 <strong>父类</strong> 的 <strong>公有方法</strong> <strong>间接</strong> 访问到 <strong>私有属性</strong> 或 <strong>私有方法</strong></li>
+</ol>
+<blockquote>
+<ul>
+<li><strong>私有属性、方法</strong> 是对象的隐私，不对外公开，<strong>外界</strong> 以及 <strong>子类</strong> 都不能直接访问</li>
+<li><strong>私有属性、方法</strong> 通常用于做一些内部的事情</li>
+</ul>
+</blockquote>
+<p><strong>示例</strong></p>
+<p><img src="media/15006307099794/013_%E7%88%B6%E7%B1%BB%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E5%92%8C%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95.png" alt="013_父类的私有属性和私有方法-w220" /></p>
+<ul>
+<li><code>B</code> 的对象不能直接访问 <code>__num2</code> 属性</li>
+<li><code>B</code> 的对象不能在 <code>demo</code> 方法内访问 <code>__num2</code> 属性</li>
+<li><code>B</code> 的对象可以在 <code>demo</code> 方法内，调用父类的 <code>test</code> 方法</li>
+<li>父类的 <code>test</code> 方法内部，能够访问 <code>__num2</code> 属性和 <code>__test</code> 方法</li>
+</ul>
+<h2>02. 多继承</h2>
+<p><strong>概念</strong></p>
+<ul>
+<li><strong>子类</strong> 可以拥有 <strong>多个父类</strong>，并且具有 <strong>所有父类</strong> 的 <strong>属性</strong> 和 <strong>方法</strong></li>
+<li>例如：<strong>孩子</strong> 会继承自己 <strong>父亲</strong> 和 <strong>母亲</strong> 的 <strong>特性</strong></li>
+</ul>
+<p><img src="media/15006307099794/014_%E5%A4%9A%E7%BB%A7%E6%89%BF.png" alt="014_多继承-w384" /></p>
+<p><strong>语法</strong></p>
+<p><code>python
+class 子类名(父类名1, 父类名2...)
+    pass</code></p>
+<h3>2.1 多继承的使用注意事项</h3>
+<p><strong>问题的提出</strong></p>
+<ul>
+<li>如果 <strong>不同的父类</strong> 中存在 <strong>同名的方法<strong>，</strong>子类对象</strong> 在调用方法时，会调用 <strong>哪一个父类中</strong>的方法呢？</li>
+</ul>
+<blockquote>
+<p>提示：<strong>开发时，应该尽量避免这种容易产生混淆的情况！</strong> —— 如果 <strong>父类之间</strong> 存在 <strong>同名的属性或者方法</strong>，应该 <strong>尽量避免</strong> 使用多继承</p>
+</blockquote>
+<p><img src="media/15006307099794/015_%E5%A4%9A%E7%BB%A7%E6%89%BFII.png" alt="015_多继承II-w384" /></p>
+<h4>Python 中的 MRO —— 方法搜索顺序（知道）</h4>
+<ul>
+<li><code>Python</code> 中针对 <strong>类</strong> 提供了一个 <strong>内置属性</strong> <code>__mro__</code> 可以查看 <strong>方法</strong> 搜索顺序</li>
+<li>MRO 是 <code>method resolution order</code>，主要用于 <strong>在多继承时判断 方法、属性 的调用 路径</strong></li>
+</ul>
+<p><code>python
+print(C.__mro__)</code></p>
+<p><strong>输出结果</strong></p>
+<p><code>(&lt;class '__main__.C'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;class 'object'&gt;)</code></p>
+<ul>
+<li>在搜索方法时，是按照 <code>__mro__</code> 的输出结果 <strong>从左至右</strong> 的顺序查找的</li>
+<li>如果在当前类中 <strong>找到方法，就直接执行，不再搜索</strong></li>
+<li>如果 <strong>没有找到，就查找下一个类</strong> 中是否有对应的方法，<strong>如果找到，就直接执行，不再搜索</strong></li>
+<li>如果找到最后一个类，还没有找到方法，程序报错</li>
+</ul>
+<h3>2.2 新式类与旧式（经典）类</h3>
+<blockquote>
+<p><code>object</code> 是 <code>Python</code> 为所有对象提供的 <strong>基类</strong>，提供有一些内置的属性和方法，可以使用 <code>dir</code> 函数查看</p>
+</blockquote>
+<ul>
+<li><strong>新式类</strong>：以 <code>object</code> 为基类的类，<strong>推荐使用</strong></li>
+<li>
+<p><strong>经典类</strong>：不以 <code>object</code> 为基类的类，<strong>不推荐使用</strong></p>
+</li>
+<li>
+<p>在 <code>Python 3.x</code> 中定义类时，如果没有指定父类，会 <strong>默认使用</strong> <code>object</code> 作为该类的 <strong>基类</strong> —— <code>Python 3.x</code> 中定义的类都是 <strong>新式类</strong></p>
+</li>
+<li>在 <code>Python 2.x</code> 中定义类时，如果没有指定父类，则不会以 <code>object</code> 作为 <strong>基类</strong></li>
+</ul>
+<blockquote>
+<p><strong>新式类</strong> 和 <strong>经典类</strong> 在多继承时 —— <strong>会影响到方法的搜索顺序</strong></p>
+</blockquote>
+<p>为了保证编写的代码能够同时在 <code>Python 2.x</code> 和 <code>Python 3.x</code> 运行！
+今后在定义类时，<strong>如果没有父类，建议统一继承自 <code>object</code></strong></p>
+<p><code>python
+class 类名(object):
+    pass</code></p>
+<h1>类属性和类方法</h1>
+<h2>目标</h2>
+<ul>
+<li>类的结构</li>
+<li>类属性和实例属性</li>
+<li>类方法和静态方法</li>
+</ul>
+<h2>01. 类的结构</h2>
+<h3>1.1 术语 —— 实例</h3>
+<ol>
+<li>使用面相对象开发，<strong>第 1 步</strong> 是设计 <strong>类</strong></li>
+<li>
+使用 <strong>类名()</strong> 创建对象，<strong>创建对象</strong> 的动作有两步：
+<ul>
+<li>1) 在内存中为对象 <strong>分配空间</strong></li>
+<li>2) 调用初始化方法 <code>__init__</code> 为 <strong>对象初始化</strong></li>
+</ul>
+</li>
+<li>对象创建后，<strong>内存</strong> 中就有了一个对象的 <strong>实实在在</strong> 的存在 —— <strong>实例</strong></li>
+</ol>
+<p><img src="media/15016413127744/017_%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BEI.png" alt="017_类的结构示意图I-w473" /></p>
+<p>因此，通常也会把：</p>
+<ol>
+<li>创建出来的 <strong>对象</strong> 叫做 <strong>类</strong> 的 <strong>实例</strong></li>
+<li>创建对象的 <strong>动作</strong> 叫做 <strong>实例化</strong></li>
+<li><strong>对象的属性</strong> 叫做 <strong>实例属性</strong></li>
+<li><strong>对象调用的方法</strong> 叫做 <strong>实例方法</strong></li>
+</ol>
+<p>在程序执行时：</p>
+<ol>
+<li>对象各自拥有自己的 <strong>实例属性</strong></li>
+<li>
+调用对象方法，可以通过 <code>self.</code> 
+<ul>
+<li>访问自己的属性</li>
+<li>调用自己的方法</li>
+</ul>
+</li>
+</ol>
+<p><strong>结论</strong></p>
+<ul>
+<li><strong>每一个对象</strong> 都有自己 <strong>独立的内存空间<strong>，</strong>保存各自不同的属性</strong></li>
+<li><strong>多个对象的方法</strong>，<strong>在内存中只有一份<strong>，在调用方法时，</strong>需要把对象的引用</strong> 传递到方法内部</li>
+</ul>
+<h3>1.2 类是一个特殊的对象</h3>
+<blockquote>
+<p><code>Python</code> 中 <strong>一切皆对象</strong>：</p>
+<ul>
+<li><code>class AAA:</code> 定义的类属于 <strong>类对象</strong></li>
+<li><code>obj1 = AAA()</code> 属于 <strong>实例对象</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li>在程序运行时，<strong>类</strong> 同样 <strong>会被加载到内存</strong></li>
+<li>在 <code>Python</code> 中，<strong>类</strong> 是一个特殊的对象 —— <strong>类对象</strong></li>
+<li>在程序运行时，<strong>类对象</strong> 在内存中 <strong>只有一份</strong>，使用 <strong>一个类</strong> 可以创建出 <strong>很多个对象实例</strong></li>
+<li>
+除了封装 <strong>实例</strong> 的 <strong>属性</strong> 和 <strong>方法</strong>外，<strong>类对象</strong> 还可以拥有自己的 <strong>属性</strong> 和 <strong>方法</strong>
+<ol>
+<li><strong>类属性</strong></li>
+<li><strong>类方法</strong></li>
+</ol>
+</li>
+<li>通过 <strong>类名.</strong> 的方式可以 <strong>访问类的属性</strong> 或者 <strong>调用类的方法</strong></li>
+</ul>
+<p><img src="media/15016413127744/017_%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BEII.png" alt="017_类的结构示意图II-w545" /></p>
+<h2>02. 类属性和实例属性</h2>
+<h3>2.1 概念和使用</h3>
+<ul>
+<li><strong>类属性</strong> 就是给 <strong>类对象</strong> 中定义的 <strong>属性</strong></li>
+<li>通常用来记录 <strong>与这个类相关</strong> 的特征</li>
+<li><strong>类属性</strong> <strong>不会用于</strong>记录 <strong>具体对象的特征</strong></li>
+</ul>
+<p><strong>示例需求</strong></p>
+<ul>
+<li>定义一个 <strong>工具类</strong></li>
+<li>每件工具都有自己的 <code>name</code></li>
+<li><strong>需求</strong> —— 知道使用这个类，创建了多少个工具对象？</li>
+</ul>
+<p><img src="media/15016413127744/018_%E7%B1%BB%E5%B1%9E%E6%80%A7%E6%A1%88%E4%BE%8BI.png" alt="018_类属性案例I-w263" /></p>
+<p>```python
+class Tool(object):</p>
+<pre><code># 使用赋值语句，定义类属性，记录创建工具对象的总数
+count = 0
+
+def __init__(self, name):
+    self.name = name
+
+    # 针对类属性做一个计数+1
+    Tool.count += 1
+</code></pre>
+
+<h1>创建工具对象</h1>
+<p>tool1 = Tool(&quot;斧头&quot;)
+tool2 = Tool(&quot;榔头&quot;)
+tool3 = Tool(&quot;铁锹&quot;)</p>
+<h1>知道使用 Tool 类到底创建了多少个对象?</h1>
+<p>print(&quot;现在创建了 %d 个工具&quot; % Tool.count)</p>
+<p>```</p>
+<h3>2.2 属性的获取机制（科普）</h3>
+<ul>
+<li>在 <code>Python</code> 中 <strong>属性的获取</strong> 存在一个 <strong>向上查找机制</strong></li>
+</ul>
+<p><img src="media/15016413127744/019_%E9%80%9A%E8%BF%87%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%B1%9E%E6%80%A7.png" alt="019_通过对象访问类属性-w779" /></p>
+<ul>
+<li>
+因此，要访问类属性有两种方式：
+<ol>
+<li><strong>类名.类属性</strong></li>
+<li><strong>对象.类属性</strong> （不推荐）</li>
+</ol>
+</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>如果使用 <code>对象.类属性 = 值</code> 赋值语句，只会 <strong>给对象添加一个属性</strong>，而不会影响到 <strong>类属性的值</strong></li>
+</ul>
+<h2>03. 类方法和静态方法</h2>
+<h3>3.1 类方法</h3>
+<ul>
+<li>
+<strong>类属性</strong> 就是针对 <strong>类对象</strong> 定义的属性
+<ul>
+<li>使用 <strong>赋值语句</strong> 在 <code>class</code> 关键字下方可以定义 <strong>类属性</strong></li>
+<li><strong>类属性</strong> 用于记录 <strong>与这个类相关</strong> 的特征</li>
+</ul>
+</li>
+<li>
+<strong>类方法</strong> 就是针对 <strong>类对象</strong> 定义的方法
+<ul>
+<li>在 <strong>类方法</strong> 内部可以直接访问 <strong>类属性</strong> 或者调用其他的 <strong>类方法</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>语法如下</strong></p>
+<p><code>python
+@classmethod
+def 类方法名(cls):
+    pass</code></p>
+<ul>
+<li>类方法需要用 <strong>修饰器</strong> <code>@classmethod</code> 来标识，<strong>告诉解释器这是一个类方法</strong></li>
+<li>
+类方法的 <strong>第一个参数</strong> 应该是 <code>cls</code>
+<ul>
+<li>由 <strong>哪一个类</strong> 调用的方法，方法内的 <code>cls</code> 就是 <strong>哪一个类的引用</strong></li>
+<li>这个参数和 <strong>实例方法</strong> 的第一个参数是 <code>self</code> 类似</li>
+<li><strong>提示</strong> 使用其他名称也可以，不过习惯使用 <code>cls</code></li>
+</ul>
+</li>
+<li>通过 <strong>类名.</strong> 调用 <strong>类方法<strong>，</strong>调用方法时</strong>，不需要传递 <code>cls</code> 参数</li>
+<li>
+<strong>在方法内部</strong>
+<ul>
+<li>可以通过 <code>cls.</code> <strong>访问类的属性</strong></li>
+<li>也可以通过 <code>cls.</code> <strong>调用其他的类方法</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>示例需求</strong></p>
+<ul>
+<li>定义一个 <strong>工具类</strong></li>
+<li>每件工具都有自己的 <code>name</code></li>
+<li><strong>需求</strong> —— 在 <strong>类</strong> 封装一个 <code>show_tool_count</code> 的类方法，输出使用当前这个类，创建的对象个数</li>
+</ul>
+<p><img src="media/15016413127744/020_%E7%B1%BB%E6%96%B9%E6%B3%95%E6%A1%88%E4%BE%8B.png" alt="020_类方法案例-w263" /></p>
+<p><code>python
+@classmethod
+def show_tool_count(cls):
+    &quot;&quot;&quot;显示工具对象的总数&quot;&quot;&quot;
+    print(&quot;工具对象的总数 %d&quot; % cls.count)</code></p>
+<blockquote>
+<p>在类方法内部，可以直接使用 <code>cls</code> 访问 <strong>类属性</strong> 或者 <strong>调用类方法</strong></p>
+</blockquote>
+<h3>3.2 静态方法</h3>
+<ul>
+<li>
+<p>在开发时，如果需要在 <strong>类</strong> 中封装一个方法，这个方法：</p>
+<ul>
+<li>既 <strong>不需要</strong> 访问 <strong>实例属性</strong> 或者调用 <strong>实例方法</strong></li>
+<li>也 <strong>不需要</strong> 访问 <strong>类属性</strong> 或者调用 <strong>类方法</strong></li>
+</ul>
+</li>
+<li>
+<p>这个时候，可以把这个方法封装成一个 <strong>静态方法</strong></p>
+</li>
+</ul>
+<p><strong>语法如下</strong></p>
+<p><code>python
+@staticmethod
+def 静态方法名():
+    pass</code></p>
+<ul>
+<li><strong>静态方法</strong> 需要用 <strong>修饰器</strong> <code>@staticmethod</code> 来标识，<strong>告诉解释器这是一个静态方法</strong></li>
+<li>通过 <strong>类名.</strong> 调用 <strong>静态方法</strong></li>
+</ul>
+<p>```python
+class Dog(object):</p>
+<pre><code># 狗对象计数
+dog_count = 0
+
+@staticmethod
+def run():
+
+    # 不需要访问实例属性也不需要访问类属性的方法
+    print(&quot;狗在跑...&quot;)
+
+def __init__(self, name):
+    self.name = name
+</code></pre>
+
+<p>```</p>
+<h3>3.3 方法综合案例</h3>
+<p><strong>需求</strong></p>
+<ol>
+<li>设计一个 <code>Game</code> 类</li>
+<li>
+属性：
+<ul>
+<li>定义一个 <strong>类属性</strong> <code>top_score</code> 记录游戏的 <strong>历史最高分</strong></li>
+<li>定义一个 <strong>实例属性</strong> <code>player_name</code> 记录 <strong>当前游戏的玩家姓名</strong></li>
+</ul>
+</li>
+<li>
+方法：
+<ul>
+<li><strong>静态方法</strong> <code>show_help</code> 显示游戏帮助信息</li>
+<li><strong>类方法</strong> <code>show_top_score</code> 显示历史最高分</li>
+<li><strong>实例方法</strong> <code>start_game</code> 开始当前玩家的游戏</li>
+</ul>
+</li>
+<li>
+主程序步骤
+<ul>
+<li>1) 查看帮助信息</li>
+<li>2) 查看历史最高分</li>
+<li>3) 创建游戏对象，开始游戏</li>
+</ul>
+</li>
+</ol>
+<p><img src="media/15016413127744/021_%E6%96%B9%E6%B3%95%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B.png" alt="021_方法综合案例-w351" /></p>
+<h4>案例小结</h4>
+<ol>
+<li>
+<strong>实例方法</strong> —— 方法内部需要访问 <strong>实例属性</strong>
+<ul>
+<li><strong>实例方法</strong> 内部可以使用 <strong>类名.</strong> 访问类属性</li>
+</ul>
+</li>
+<li><strong>类方法</strong> —— 方法内部 <strong>只</strong> 需要访问 <strong>类属性</strong></li>
+<li><strong>静态方法</strong> —— 方法内部，不需要访问 <strong>实例属性</strong> 和 <strong>类属性</strong></li>
+</ol>
+<p><strong>提问</strong></p>
+<p>如果方法内部 即需要访问 <strong>实例属性</strong>，又需要访问 <strong>类属性</strong>，应该定义成什么方法？</p>
+<p><strong>答案</strong></p>
+<ul>
+<li>应该定义 <strong>实例方法</strong></li>
+<li>因为，<strong>类只有一个</strong>，在 <strong>实例方法</strong> 内部可以使用 <strong>类名.</strong> 访问类属性</li>
+</ul>
+<p>```python
+class Game(object):</p>
+<pre><code># 游戏最高分，类属性
+top_score = 0
+
+@staticmethod
+def show_help():
+    print(&quot;帮助信息：让僵尸走进房间&quot;)
+
+@classmethod
+def show_top_score(cls):
+    print(&quot;游戏最高分是 %d&quot; % cls.top_score)
+
+def __init__(self, player_name):
+    self.player_name = player_name
+
+def start_game(self):
+    print(&quot;[%s] 开始游戏...&quot; % self.player_name)
+
+    # 使用类名.修改历史最高分
+    Game.top_score = 999
+</code></pre>
+
+<h1>1. 查看游戏帮助</h1>
+<p>Game.show_help()</p>
+<h1>2. 查看游戏最高分</h1>
+<p>Game.show<em>top</em>score()</p>
+<h1>3. 创建游戏对象，开始游戏</h1>
+<p>game = Game(&quot;小明&quot;)</p>
+<p>game.start_game()</p>
+<h1>4. 游戏结束，查看游戏最高分</h1>
+<p>Game.show<em>top</em>score()</p>
+<p>```</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
